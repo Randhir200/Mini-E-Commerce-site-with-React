@@ -1,5 +1,14 @@
-import React from "react";
-
+import React, { useContext, useState } from 'react';
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+  Input,
+  Button,
+} from '@chakra-ui/react';
+import { AuthContext } from '../Context/AuthContext/AuthContextProvider';
 // 0. axios should be used for making network requests;
 
 // 1. input boxes which takes email and password from the user
@@ -15,7 +24,53 @@ import React from "react";
 // 6. Proper Alert should be displayed to user upon unsuccessful API call. the message can be `Something went wrong. please refresh.`
 
 const Login = () => {
-  return <div>Login</div>;
+  const [input, setInput] = useState('');
+  const { state, dispatch } = useContext(AuthContext);
+  const handleInputChange = (e) => setInput(e.target.value);
+  const isError = input === '';
+  console.log(state);
+  function handleClick() {
+     dispatch({ type: 'load'})
+     setTimeout(()=>{
+      dispatch({ type: 'success', token: 'hsjkdhJ' })
+     },2000)
+     
+  }
+  return (
+    <Box w='25%' m='auto'>
+      <FormControl isInvalid={isError}>
+        <FormLabel>Email</FormLabel>
+        <Input type='email' value={input} onChange={handleInputChange} />
+        {!isError ? (
+          <FormHelperText>
+            Enter the email you'd like to receive the newsletter on.
+          </FormHelperText>
+        ) : (
+          <FormErrorMessage>Email is required.</FormErrorMessage>
+        )}
+        <FormLabel>Password</FormLabel>
+        <Input type='email' value={input} onChange={handleInputChange} />
+        {!isError ? (
+          <FormHelperText>
+            Enter the password you'd like to receive the newsletter on.
+          </FormHelperText>
+        ) : (
+          <FormErrorMessage>Password is required.</FormErrorMessage>
+        )}
+
+        <Button
+          m='auto'
+          isLoading={state.loading}
+          loadingText='Submitting'
+          colorScheme='teal'
+          variant='outline'
+          onClick={() => handleClick()}
+        >
+          Submit
+        </Button>
+      </FormControl>
+    </Box>
+  );
 };
 
 export default Login;
