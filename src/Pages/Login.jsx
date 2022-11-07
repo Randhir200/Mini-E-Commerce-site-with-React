@@ -40,7 +40,7 @@ const Login = () => {
     <Box w='25%' m='auto'>
       <FormControl isInvalid={isError}>
         <FormLabel>Email</FormLabel>
-        <Input type='email' value={input} onChange={handleInputChange} />
+        <Input type='email' name='email' value={input} onChange={handleInputChange} />
         {!isError ? (
           <FormHelperText>
             Enter the email you'd like to receive the newsletter on.
@@ -49,7 +49,7 @@ const Login = () => {
           <FormErrorMessage>Email is required.</FormErrorMessage>
         )}
         <FormLabel>Password</FormLabel>
-        <Input type='email' value={input} onChange={handleInputChange} />
+        <Input type='password' name='password' placeholdervalue={input} onChange={handleInputChange} />
         {!isError ? (
           <FormHelperText>
             Enter the password you'd like to receive the newsletter on.
